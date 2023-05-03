@@ -1,5 +1,8 @@
-import React from "react";
 import * as C from "./App.styles";
+import { CategoryType } from "./types/CategoryType";
+import { ItemType } from "./types/ItemType";
+import { categories } from "./data/categories";
+import { items } from "./data/items";
 
 const App = () => {
     return (
