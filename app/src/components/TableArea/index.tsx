@@ -19,7 +19,7 @@ const TableArea = ({ listItems }: Props) => {
             </thead>
             <tbody>
                 {listItems.map((item, index) => (
-                    <TableItem item={item} />
+                    <TableItem item={item} key={index} />
                 ))}
             </tbody>
         </C.Table>
