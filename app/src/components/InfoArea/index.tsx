@@ -1,12 +1,15 @@
 import * as C from "./styles";
 import { formatCurrentMonth, getCurrentMonth } from "../../helpers/dateFilter";
+import ResumeItem from "../ResumeItem";
 
 type Props = {
     currentMonth: string;
     onMonthChange: (newMonth: string) => void;
+    income: number;
+    expense: number;
 };
 
-const InfoArea = ({ currentMonth, onMonthChange }: Props) => {
+const InfoArea = ({ currentMonth, onMonthChange, income, expense }: Props) => {
     const handleChangeDate = (changeDate: string) => {
         const [year, month] = currentMonth.split("-");
         const currentDate = new Date(parseInt(year), parseInt(month) - 1, 1);
@@ -34,7 +37,15 @@ const InfoArea = ({ currentMonth, onMonthChange }: Props) => {
                 </C.MonthArrow>
             </C.MonthArea>
 
-            <C.ResumeArea>...</C.ResumeArea>
+            <C.ResumeArea>
+                <ResumeItem title="Receitas" value={income} color="green" />
+                <ResumeItem title="Despesas" value={expense} color="red" />
+                <ResumeItem
+                    title="Balanço"
+                    value={income - expense}
+                    color={income - expense < 0 ? "red" : "green"}
+                />
+            </C.ResumeArea>
         </C.Container>
     );
 };

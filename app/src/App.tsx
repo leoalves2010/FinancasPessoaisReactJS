@@ -12,10 +12,28 @@ const App = () => {
     const [listItems, setListItems] = React.useState(items);
     const [filteredList, setFilteredList] = React.useState<ItemType[]>([]);
     const [currentMonth, setCurrentMonth] = React.useState(getCurrentMonth);
+    const [income, setIncome] = React.useState(0);
+    const [expense, setExpense] = React.useState(0);
 
     React.useEffect(() => {
         setFilteredList(filterListByMonth(listItems, currentMonth));
     }, [listItems, currentMonth]);
+
+    React.useEffect(() => {
+        let incomeSum = 0;
+        let expenseSum = 0;
+
+        for (const i in filteredList) {
+            if (categories[filteredList[i].category].expense) {
+                expenseSum += filteredList[i].value;
+            } else {
+                incomeSum += filteredList[i].value;
+            }
+        }
+
+        setIncome(incomeSum);
+        setExpense(expenseSum);
+    }, [filteredList]);
 
     const handleMonthChange = (newMonth: string) => {
         setCurrentMonth(newMonth);
@@ -30,6 +48,8 @@ const App = () => {
                 <InfoArea
                     currentMonth={currentMonth}
                     onMonthChange={handleMonthChange}
+                    income={income}
+                    expense={expense}
                 ></InfoArea>
                 <TableArea listItems={filteredList} />
             </C.Body>
