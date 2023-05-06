@@ -2,7 +2,9 @@ import { ItemType } from "../types/ItemType";
 
 export const getCurrentMonth = () => {
     const dateToday = new Date();
-    return `${dateToday.getFullYear()}-${dateToday.getMonth() + 1}`;
+    const month = (dateToday.getMonth() + 1).toString().padStart(2, "0");
+    const year = dateToday.getFullYear().toString();
+    return `${year}-${month}`;
 };
 
 export const filterListByMonth = (
@@ -30,4 +32,24 @@ export const formatDate = (date: Date): string => {
     const year = date.getFullYear().toString();
 
     return `${day}/${month}/${year}`;
+};
+
+export const formatCurrentMonth = (currentMonth: string): string => {
+    const [year, month] = currentMonth.split("-");
+    const monthNames = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro",
+    ];
+
+    return `${monthNames[parseInt(month) - 1]} de ${year}`;
 };
