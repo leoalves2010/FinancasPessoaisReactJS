@@ -5,9 +5,17 @@ import { categories } from "../../data/categories";
 
 type Props = {
     item: ItemType;
+    setListItems: React.Dispatch<React.SetStateAction<ItemType[]>>;
+    generalList: ItemType[];
 };
 
-const TableItem = ({ item }: Props) => {
+const TableItem = ({ item, setListItems, generalList }: Props) => {
+    const handleClickRemove = (id: number) => {
+        const copyListItems = [...generalList];
+        const newListItems = copyListItems.filter((x) => x.id !== id);
+        setListItems(newListItems);
+    };
+
     return (
         <C.TableLine>
             <C.TableColumn>{formatDate(item.date)}</C.TableColumn>
@@ -23,6 +31,11 @@ const TableItem = ({ item }: Props) => {
                 >
                     R$ {item.value}
                 </C.Value>
+            </C.TableColumn>
+            <C.TableColumn>
+                <C.Button onClick={() => handleClickRemove(item.id)}>
+                    Remover
+                </C.Button>
             </C.TableColumn>
         </C.TableLine>
     );

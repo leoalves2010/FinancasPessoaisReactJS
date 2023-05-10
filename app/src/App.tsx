@@ -7,6 +7,7 @@ import { items } from "./data/items";
 import { getCurrentMonth, filterListByMonth } from "./helpers/dateFilter";
 import TableArea from "./components/TableArea";
 import InfoArea from "./components/InfoArea";
+import InputArea from "./components/InputArea";
 
 const App = () => {
     const [listItems, setListItems] = React.useState(items);
@@ -39,6 +40,12 @@ const App = () => {
         setCurrentMonth(newMonth);
     };
 
+    const handleAdd = (item: ItemType) => {
+        const newListItems = [...listItems];
+        newListItems.push(item);
+        setListItems(newListItems);
+    };
+
     return (
         <C.Container>
             <C.Header>
@@ -51,7 +58,8 @@ const App = () => {
                     income={income}
                     expense={expense}
                 ></InfoArea>
-                <TableArea listItems={filteredList} />
+                <InputArea onAdd={handleAdd} />
+                <TableArea filteredList={filteredList} setListItems={setListItems} generalList={listItems} />
             </C.Body>
         </C.Container>
     );
